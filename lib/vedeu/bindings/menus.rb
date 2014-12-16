@@ -142,6 +142,9 @@ module Vedeu
         Vedeu.bind(:_menu_view_) { |name| Vedeu.menus.by_name(name).view }
       end
 
+      # Allows the traversal to a new named menu.
+      Vedeu.bind(:_menu_traverse_) { |name| Vedeu.menus.find(name).traverse      }
+
     end # Menus
     # :nocov:
 

@@ -1,7 +1,7 @@
 module Vedeu
 
   # Converts the collection passed into a list of menu items which can be
-  # navigated using the instance methods or events provided.
+  # navigated using the instance methods or events provided in {Vedeu::Menus}.
   #
   class Menu
 
@@ -196,6 +196,9 @@ module Vedeu
       @collection.size
     end
 
+    def traverse
+    end
+
     private
 
     # The default values for a new instance of this class.
@@ -215,3 +218,22 @@ module Vedeu
   end # Menu
 
 end # Vedeu
+
+# descendant
+# ancestor
+
+# menu 1           menu 2              # m3
+#
+# - root (nil)
+# - parent (nil)
+# - item 1         - root (m1)
+# - item 2         - parent (m1)       - root (m1)
+# - item 3         - m2 item 1         - parent (m2)
+# - item 2 (m2) >  - m2 item 1         - m3 item 1
+# - item 3         - m2 item 2
+# - item 4         - m2 item 3         # m4
+#   ...            - m2 item 4 (m3)    - root (m11)
+#                  - m2 item 5         - parent (m2)
+#                  - m2 item 6 (m4)    - m4 item 1
+#                  - ...               - m4 item 2 (m3)
+#                                      - m4 item 3
