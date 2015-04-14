@@ -1,38 +1,42 @@
-class Node
+module Vedeu
 
-  attr_accessor :name, :parent
-  attr_reader :children
+  class Node
 
-  def initialize(name)
-    @name     = name
-    @children = []
-    @parent   = nil
-  end
+    attr_accessor :name, :parent
+    attr_reader :children
 
-  def add_child(node)
-    @children << node
+    def initialize(name)
+      @name     = name
+      @children = []
+      @parent   = nil
+    end
 
-    node.parent = self
-  end
-  alias_method :<<, :add_child
+    def add_child(node)
+      @children << node
 
-  def remove_child(node)
-    @children.delete(node)
-  end
+      node.parent = self
+    end
+    alias_method :<<, :add_child
 
-  def [](index)
-    @children[index]
-  end
+    def remove_child(node)
+      @children.delete(node)
+    end
 
-  def []=(index, node)
-    replaced_child        = @children[index]
-    @children[index]      = node
-    replaced_child.parent = nil
-    node.parent           = self
-  end
+    def [](index)
+      @children[index]
+    end
 
-  def leaf?
-    children.empty?
+    def []=(index, node)
+      replaced_child        = @children[index]
+      @children[index]      = node
+      replaced_child.parent = nil
+      node.parent           = self
+    end
+
+    def leaf?
+      children.empty?
+    end
+
   end
 
 end

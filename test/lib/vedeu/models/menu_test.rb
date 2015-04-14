@@ -8,15 +8,21 @@ module Vedeu
     let(:instance)   { described.new(attributes) }
     let(:attributes) {
       {
+        client:     client,
         collection: collection,
-        name:       menu_name,
         current:    current,
+        name:       _name,
+        parent:     parent,
+        repository: repository,
         selected:   selected,
       }
     }
+    let(:client)     {}
     let(:collection) { ['hydrogen', 'carbon', 'nitrogen', 'oxygen'] }
-    let(:menu_name)  { 'elements' }
     let(:current)    { 0 }
+    let(:_name)      { 'elements' }
+    let(:parent)     {}
+    let(:repository) { Vedeu.menus }
     let(:selected)   {}
 
     describe '.menu' do

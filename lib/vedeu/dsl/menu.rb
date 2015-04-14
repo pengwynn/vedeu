@@ -22,6 +22,9 @@ module Vedeu
       # Add an individual item to the menu.
       #
       # @param element [Object] An object you wish to add to the collection.
+      # @param options [Hash]
+      # @option options child [String] The name of the menu for which this item
+      #   points to; a submenu of this menu.
       #
       #   Vedeu.menu 'my_menu' do
       #     item SomeClass.new
@@ -29,7 +32,7 @@ module Vedeu
       #   end
       #
       # @return [Array]
-      def item(element)
+      def item(element, options = {})
         model.collection << element
       end
       alias_method :item=, :item

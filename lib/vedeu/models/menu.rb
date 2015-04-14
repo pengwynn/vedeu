@@ -24,6 +24,12 @@ module Vedeu
     # @return [String]
     attr_accessor :name
 
+    # The name of the parent menu to this menu.
+    #
+    # @!attribute [rw] parent
+    # @return [String]
+    attr_accessor :parent
+
     # Returns the index of the value in the collection which is selected.
     #
     # @!attribute [rw] selected
@@ -61,8 +67,10 @@ module Vedeu
     #
     # @param attributes [Hash]
     # @option attributes collection [Array]
-    # @option attributes name [String]
     # @option attributes current [Fixnum]
+    # @option attributes name [String]
+    # @option attributes parent [String]
+    # @option attributes repository [Vedeu::Menus]
     # @option attributes selected [Fixnum|NilClass]
     # @return [Vedeu::Menu]
     def initialize(attributes = {})
@@ -210,6 +218,7 @@ module Vedeu
         collection: [],
         current:    0,
         name:       '',
+        parent:     nil,
         repository: Vedeu.menus,
         selected:   nil,
       }

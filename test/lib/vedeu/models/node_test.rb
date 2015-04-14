@@ -1,23 +1,27 @@
-require "spec_helper"
+require 'test_helper'
 
-describe Node do
+module Vedeu
 
-  describe '#initialize' do
-  end
+  describe Node do
 
-  describe '#add_child' do
-  end
+    describe '#initialize' do
+    end
 
-  describe '#remove_child' do
-  end
+    describe '#add_child' do
+    end
 
-  describe '#[]' do
-  end
+    describe '#remove_child' do
+    end
 
-  describe '#[]=' do
-  end
+    describe '#[]' do
+    end
 
-  describe '#leaf?' do
-  end
+    describe '#[]=' do
+    end
 
-end
+    describe '#leaf?' do
+    end
+
+  end # Node
+
+end # Vedeu
