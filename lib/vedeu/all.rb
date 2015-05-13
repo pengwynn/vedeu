@@ -101,6 +101,8 @@ require 'vedeu/input/all'
 require 'vedeu/menus/all'
 
 require 'vedeu/output/direct'
+require 'vedeu/forms/all'
+
 require 'vedeu/output/clear/named_group'
 require 'vedeu/output/clear/named_interface'
 require 'vedeu/output/presentation'
