@@ -4,7 +4,8 @@ module Vedeu
     include Vedeu::Selectable
 
     # @return [Vedeu::RadioList]
-    def initialize
+    def initialize(options)
+    	@options = options
     end
 
   end # RadioList
