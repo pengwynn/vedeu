@@ -56,6 +56,7 @@ require 'vedeu/models/group'
 require 'vedeu/models/groups'
 require 'vedeu/models/row'
 require 'vedeu/models/page'
+require 'vedeu/models/panel'
 
 require 'vedeu/templating/all'
 require 'vedeu/templating/encoder'
