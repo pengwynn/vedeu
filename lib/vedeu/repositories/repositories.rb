@@ -1,3 +1,5 @@
+require 'vedeu/repositories/continuous_repository'
+
 module Vedeu
 
   # Provides all registered repositories.

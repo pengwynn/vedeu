@@ -57,6 +57,9 @@ require 'vedeu/models/groups'
 require 'vedeu/models/row'
 require 'vedeu/models/page'
 
+require 'vedeu/repositories/continuous_repository'
+require 'vedeu/runtime/continuous'
+
 require 'vedeu/templating/all'
 require 'vedeu/templating/encoder'
 require 'vedeu/templating/decoder'
