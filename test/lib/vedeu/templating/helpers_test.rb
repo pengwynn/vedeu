@@ -15,6 +15,26 @@ module Vedeu
       let(:described) { Vedeu::Templating::Helpers }
       let(:instance)  { Vedeu::Templating::HelpersTestClass.new }
 
+      describe '#align' do
+        let(:options)  { {} }
+        let(:expected) { "{{eJxj4TAAAABPAD0=}}" }
+
+        subject { instance.align(options) { 'alignment test' } }
+
+        context 'with no block is given' do
+          subject { instance.align(options) }
+
+          it { proc { subject }.must_raise(Vedeu::InvalidSyntax) }
+        end
+
+        it { subject.must_equal(expected) }
+
+        it { instance.must_respond_to(:left) }
+        it { instance.must_respond_to(:right) }
+        it { instance.must_respond_to(:centre) }
+        it { instance.must_respond_to(:center) }
+      end
+
       describe '#background' do
         let(:expected) {
           "{{eJx1j08PATEQxR2ki5YQLuJA1hdwnr1MCMmeiXvZIRtrK93Wn/jyqiyJRC+dl9f3m9dqTUF/TQlZgHVKlwJgaTTJo4A2SmN0urGGijsHvs1Sys3EDSpTVisYvHMzr4tyCFxyI7eHvVY2TxQMf59NPyYDgS9aHIrxxB8GbL5yiJ3S9Bex+JgsEnFYYVFzBfwktW/YKMwtIwWdd2z5lAw4nmVmyfn+jsPet+bI0NV4Sj2XRyqRrt7r15HAwKlyA0e/AkXUxSY08JnB1gP9j2kt}}"
@@ -22,15 +42,27 @@ module Vedeu
 
         subject { instance.background('#000000') { 'background text' } }
 
-        it { instance.must_respond_to(:bg) }
+        context 'with no block is given' do
+          subject { instance.background('#000000') }
+
+          it { proc { subject }.must_raise(Vedeu::InvalidSyntax) }
+        end
 
         it { subject.must_equal(expected) }
+
+        it { instance.must_respond_to(:bg) }
       end
 
       describe '#colour' do
         let(:attributes) { {} }
 
         subject { instance.colour(attributes) { 'colour text' } }
+
+        context 'with no block is given' do
+          subject { instance.colour(attributes) }
+
+          it { proc { subject }.must_raise(Vedeu::InvalidSyntax) }
+        end
 
         context 'with no attributes' do
           it { subject.must_be_instance_of(String) }
@@ -84,9 +116,15 @@ module Vedeu
 
         subject { instance.foreground('#000000') { 'foreground text' } }
 
-        it { instance.must_respond_to(:fg) }
+        context 'with no block is given' do
+          subject { instance.foreground('#000000') }
+
+          it { proc { subject }.must_raise(Vedeu::InvalidSyntax) }
+        end
 
         it { subject.must_equal(expected) }
+
+        it { instance.must_respond_to(:fg) }
       end
 
       describe '#style' do
@@ -95,6 +133,12 @@ module Vedeu
         }
 
         subject { instance.style(:bold) { 'style text' } }
+
+        context 'with no block is given' do
+          subject { instance.style(:bold) }
+
+          it { proc { subject }.must_raise(Vedeu::InvalidSyntax) }
+        end
 
         it { subject.must_equal(expected) }
       end

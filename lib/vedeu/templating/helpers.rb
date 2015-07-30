@@ -6,6 +6,22 @@ module Vedeu
     #
     module Helpers
 
+      # @param options [Hash<Symbol => void>]
+      # @param block [Proc]
+      # @raise [Vedeu::InvalidSyntax] The required block was not given.
+      # @return [void]
+      def align(options = {}, &block)
+        fail Vedeu::InvalidSyntax, 'block not given' unless block_given?
+
+        options.merge!(anchor: __callee__)
+
+        encode(Vedeu::Text.add(block.call, options))
+      end
+      alias_method :left, :align
+      alias_method :right, :align
+      alias_method :centre, :align
+      alias_method :center, :align
+
       # @param value [String] The HTML/CSS colour.
       # @param block [Proc]
       # @return [Vedeu::Views::Stream]
