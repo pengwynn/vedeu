@@ -50,8 +50,10 @@ module Vedeu
               # end
             #end
           end
+
           out << "#{end_row_tag}\n"
         end
+
         out
       end
 
