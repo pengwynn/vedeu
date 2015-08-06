@@ -33,6 +33,13 @@ module Vedeu
       name.downcase!
       name
     end
+    alias_method :underscore, :snake_case
+
+    # @param name [String]
+    # @return [String]
+    def pluralize(name)
+      "#{name}s"
+    end
 
     # Returns a boolean indicating whether a variable has a useful value.
     #
@@ -43,6 +50,20 @@ module Vedeu
       return true unless variable.nil? || variable.empty?
 
       false
+    end
+
+    # @param name [String]
+    # @return [String]
+    def singularize(name)
+      name.chop
+    end
+
+    # @param name [String]
+    # @return [String]
+    def underscore(name)
+      snake = snake_case(name)
+      snake.gsub!('vedeu/', '')
+      snake
     end
 
   end # Common

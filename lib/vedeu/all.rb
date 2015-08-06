@@ -27,6 +27,7 @@ require 'vedeu/repositories/collection'
 require 'vedeu/input/keys'
 require 'vedeu/repositories/repositories'
 
+require 'vedeu/repositories/associations'
 require 'vedeu/repositories/model'
 require 'vedeu/repositories/store'
 require 'vedeu/repositories/registerable'
