@@ -25,6 +25,14 @@ module Vedeu
       it { subject.must_equal('VedeuCommonClass') }
     end
 
+    describe '#pluralize' do
+      let(:_name) { 'thing' }
+
+      subject { instance.pluralize(_name) }
+
+      it { subject.must_equal('things') }
+    end
+
     describe '#present?' do
       subject { instance.defined_value_test(_value) }
 
@@ -54,6 +62,22 @@ module Vedeu
       end
     end
 
+    describe '#singularize' do
+      let(:_name) { 'things' }
+
+      subject { instance.singularize(_name) }
+
+      context 'when the name is a String' do
+        it { subject.must_equal('thing') }
+      end
+
+      context 'when the name is a Symbol' do
+        let(:_name) { :things }
+
+        it { subject.must_equal('thing') }
+      end
+    end
+
     describe '#snake_case' do
       let(:_name) { 'MyFirstApp' }
 
@@ -65,6 +89,22 @@ module Vedeu
         let(:_name) { 'MyFirstApp::SomeController' }
 
         it { subject.must_equal('my_first_app/some_controller') }
+      end
+    end
+
+    describe '#underscore' do
+      let(:_name) { 'vedeu/values' }
+
+      subject { instance.underscore(_name) }
+
+      context 'when the name is namespaced' do
+        it { subject.must_equal('values') }
+      end
+
+      context 'when the name is multi-namespaced' do
+        let(:_name) { 'vedeu/namespace/values' }
+
+        it { subject.must_equal('namespace_values') }
       end
     end
 

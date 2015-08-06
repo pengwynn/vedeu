@@ -17,24 +17,6 @@ module Vedeu
       klass[(klass.rindex('::') + 2)..-1]
     end
 
-    # Converts a class name to a lowercase snake case string.
-    #
-    # @example
-    #   snake_case(MyClassName) # => "my_class_name"
-    #   snake_case(NameSpaced::ClassName) # => "name_spaced/class_name"
-    #
-    # @param name [String]
-    # @return [String]
-    def snake_case(name)
-      name.gsub!(/::/, '/')
-      name.gsub!(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
-      name.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
-      name.tr!('-', '_')
-      name.downcase!
-      name
-    end
-    alias_method :underscore, :snake_case
-
     # @param name [String]
     # @return [String]
     def pluralize(name)
@@ -52,10 +34,27 @@ module Vedeu
       false
     end
 
-    # @param name [String]
+    # @param name [String|Symbol]
     # @return [String]
     def singularize(name)
-      name.chop
+      name.to_s.chop
+    end
+
+    # Converts a class name to a lowercase snake case string.
+    #
+    # @example
+    #   snake_case(MyClassName) # => "my_class_name"
+    #   snake_case(NameSpaced::ClassName) # => "name_spaced/class_name"
+    #
+    # @param name [String]
+    # @return [String]
+    def snake_case(name)
+      name.gsub!(/::/, '/')
+      name.gsub!(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+      name.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
+      name.tr!('-', '_')
+      name.downcase!
+      name
     end
 
     # @param name [String]
@@ -63,6 +62,7 @@ module Vedeu
     def underscore(name)
       snake = snake_case(name)
       snake.gsub!('vedeu/', '')
+      snake.gsub!('/', '_')
       snake
     end
 
