@@ -8,15 +8,16 @@ module Vedeu
     let(:instance)   { described.new(attributes) }
     let(:attributes) {
       {
-        value:    _value,
         position: position,
+        value:    _value,
       }
     }
-    let(:_value)     { "\e[?25h" }
     let(:position)   { [2, 6] }
+    let(:_value)     { "\e[?25h" }
 
     describe '#initialize' do
       it { instance.must_be_instance_of(described) }
+      it { instance.instance_variable_get('@position').must_equal(position) }
       it { instance.instance_variable_get('@value').must_equal(_value) }
     end
 
@@ -73,7 +74,6 @@ module Vedeu
 
       it { subject.must_be_instance_of(String) }
       it { subject.must_equal("\e[2;6H\e[?25h") }
-
       it { instance.must_respond_to(:to_str) }
     end
 
