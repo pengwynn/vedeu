@@ -102,7 +102,7 @@ module Vedeu
       #
       # @return [Hash<Symbol => void>]
       def defaults
-        super.merge({
+        super.merge!({
           content:       '',
           end_tag:       '</td>',
           end_row_tag:   '</tr>',
