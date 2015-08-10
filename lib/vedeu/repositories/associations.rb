@@ -12,6 +12,7 @@ module Vedeu
       # @return []
       def has_many(target)
         define_collection_getter!(target)
+        define_reflection_name!
 
         define_method("#{target}=") do |members|
           # nil to empty
@@ -19,8 +20,6 @@ module Vedeu
 
           # set the instance variable only if I am now the rightful owner
           instance_variable_set("@#{target}", members)
-
-          reflection_name = underscore(self.class.name)
 
           members.each do |member|
             current = member.send(reflection_name)
@@ -62,10 +61,9 @@ module Vedeu
       # @return []
       def has_one(target)
         define_getter!(target)
+        define_reflection_name!
 
         define_method("#{target}=") do |member|
-          reflection_name = underscore(self.class.name)
-
           if member.respond_to?(reflection_name) &&
               member.send(reflection_name) != self
             member.send("#{reflection_name}=", self)
@@ -79,13 +77,13 @@ module Vedeu
       # @return []
       def belongs_to(target)
         define_getter!(target)
+        define_reflection_name!
 
         # define setter method
         define_method("#{target}=") do |member|
           previous = instance_variable_get("@#{target}")
           instance_variable_set("@#{target}", member)
 
-          reflection_name = underscore(self.class.name)
           reflection_names = pluralize(reflection_name)
 
           # add myself to reflected association
@@ -156,6 +154,12 @@ module Vedeu
       def define_disassociator!(target)
         define_method("remove_#{singularize(target)}") do |member|
           send("#{target}=", (send(target) - [member]).uniq)
+        end
+      end
+
+      def define_reflection_name!
+        define_method("reflection_name") do
+          instance_variable_set("@reflection_name", underscore(self.class.name))
         end
       end
 

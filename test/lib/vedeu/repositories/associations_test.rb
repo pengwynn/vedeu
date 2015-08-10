@@ -36,6 +36,57 @@ module Vedeu
 
     describe ClassMethods do
 
+      let(:driver) { Driver.new('Gav') }
+      let(:car)    { Car.new('Renault') }
+      let(:dog)    { Dog.new('Sparky') }
+      let(:flea)   { Flea.new('Scratchy') }
+
+      describe '.define_associator!' do
+        it { driver.wont_respond_to(:add_car) }
+        it { car.wont_respond_to(:add_driver) }
+        it { flea.wont_respond_to(:add_dog) }
+
+        it { dog.must_respond_to(:add_flea) }
+      end
+
+      describe '.define_disassociator!' do
+        it { driver.wont_respond_to(:remove_car) }
+        it { car.wont_respond_to(:remove_driver) }
+        it { flea.wont_respond_to(:remove_dog) }
+
+        it { dog.must_respond_to(:remove_flea) }
+      end
+
+      describe '.define_getter!' do
+        it { driver.must_respond_to(:car) }
+        it { car.must_respond_to(:driver) }
+        it { dog.must_respond_to(:fleas) }
+        it { flea.must_respond_to(:dog) }
+      end
+
+      describe '.define_collection_getter!' do
+
+      end
+
+      context 'define setters' do
+        it { driver.must_respond_to(:car=) }
+        it { car.must_respond_to(:driver=) }
+        it { dog.must_respond_to(:fleas=) }
+        it { flea.must_respond_to(:dog=) }
+      end
+
+      describe '#reflection_name' do
+        let(:driver) { Driver.new('Mike') }
+        let(:car)    { Car.new('A') }
+        let(:dog)    { Dog.new('Sparky') }
+        let(:flea)   { Flea.new('A') }
+
+        it { driver.reflection_name.must_equal('driver') }
+        it { car.reflection_name.must_equal('car') }
+        it { dog.reflection_name.must_equal('dog') }
+        it { flea.reflection_name.must_equal('flea') }
+      end
+
       context 'has_one and belongs_to' do
         let(:driver) { Driver.new('Mike') }
         let(:car)    { Car.new('A') }
@@ -74,13 +125,57 @@ module Vedeu
         end
       end
 
-      context 'has_one' do
+      describe '.has_many' do
+        let(:dog)    { Dog.new('Sparky') }
+        let(:flea)   { Flea.new('A') }
+
+        before { dog.fleas = [flea] }
+
+        it { dog.must_respond_to(:fleas) }
+        it { dog.must_respond_to(:fleas=) }
+        it {
+          dog.instance_variable_get('@reflection_name').
+            must_equal('dog')
+        }
+        it { dog.instance_variable_get('@fleas').must_equal([flea]) }
+        it { dog.fleas.must_equal([flea]) }
+        it { dog.must_respond_to(:add_flea) }
+        it { dog.must_respond_to(:remove_flea) }
+        it { dog.must_respond_to(:reflection_name) }
+      end
+
+      describe '.has_one' do
         let(:driver) { Driver.new('Gav') }
         let(:car)    { Car.new('A') }
 
         before { driver.car = car }
 
+        it { driver.must_respond_to(:car) }
+        it {
+          driver.instance_variable_get('@reflection_name').
+            must_equal('driver')
+        }
+        it { driver.must_respond_to(:car=) }
+        it { driver.instance_variable_get('@car').must_equal(car) }
+
         it { driver.car.must_equal(car) }
+      end
+
+      describe '.belongs_to' do
+        let(:driver) { Driver.new('Gav') }
+        let(:car)    { Car.new('A') }
+
+        before { driver.car = car }
+
+        it { car.must_respond_to(:driver) }
+        it {
+          car.instance_variable_get('@reflection_name').
+            must_equal('car')
+        }
+        it { car.must_respond_to(:driver=) }
+        it { car.instance_variable_get('@driver').must_equal(driver) }
+
+        it { car.driver.must_equal(driver) }
       end
 
       context 'has_many and belongs_to' do
