@@ -19,6 +19,24 @@ module Vedeu
       }
     end
 
+    describe '.pause!' do
+      subject { described.pause! }
+
+      it {
+        subject;
+        described.instance_variable_get('@paused').must_equal(true)
+      }
+    end
+
+    describe '.resume!' do
+      subject { described.resume! }
+
+      it {
+        subject;
+        described.instance_variable_get('@paused').must_equal(false)
+      }
+    end
+
     describe '.safe_exit_point!' do
       subject { described.safe_exit_point! }
 

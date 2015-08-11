@@ -4,9 +4,10 @@ module Vedeu
   #
   class MainLoop
 
-    trap('SIGTERM') { stop! }
-    trap('TERM')    { stop! }
-    trap('INT')     { stop! }
+    trap('TERM') { Vedeu::MainLoop.stop! }
+    trap('INT')  { Vedeu::MainLoop.stop! }
+    trap('TSTP') { Vedeu::MainLoop.pause! }  # Terminal Stop
+    trap('CONT') { Vedeu::MainLoop.resume! } # Continue executing, if stopped.
 
     class << self
 
@@ -16,6 +17,7 @@ module Vedeu
       # @return [void]
       # @yieldreturn [void] The client application.
       def start!
+        @paused  = false
         @started = true
         @loop    = true
 
@@ -35,6 +37,27 @@ module Vedeu
       # @return [void]
       def stop!
         @loop = false
+      end
+
+      # Signal that we wish to pause the running application.
+      #
+      # @return [void]
+      def pause!
+        @paused = true
+      end
+
+      # Signal that we wish to resume the running application.
+      #
+      # @return [void]
+      def resume!
+        @paused = false
+      end
+
+      # Returns a boolean indicating whether the running application is paused.
+      #
+      # @return [Boolean]
+      def paused?
+        @paused
       end
 
       # :nocov:
