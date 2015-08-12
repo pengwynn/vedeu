@@ -23,7 +23,7 @@ module Vedeu
     def retrieve
       Vedeu.log(type: :drb, message: 'Retrieving output')
 
-      storage.pop
+      storage.retrieve
     end
 
     # Store a new virtual buffer.
@@ -32,7 +32,7 @@ module Vedeu
     def store(data)
       Vedeu.log(type: :drb, message: 'Storing output')
 
-      storage.unshift(data)
+      storage.store(data)
     end
 
     # Return the number of virtual buffers currently stored.
@@ -44,7 +44,7 @@ module Vedeu
 
     # Destroy all virtual buffers currently stored.
     #
-    # @return [Array]
+    # @return [Vedeu::Fifo]
     def clear
       @storage = in_memory
     end
@@ -54,16 +54,16 @@ module Vedeu
 
     # Access to the storage for this repository.
     #
-    # @return [Array]
+    # @return [Vedeu::Fifo]
     def storage
       @storage ||= in_memory
     end
 
     # Returns an empty collection ready for the storing of virtual buffers.
     #
-    # @return [Array]
+    # @return [Vedeu::Fifo]
     def in_memory
-      []
+      Vedeu::Fifo.new([])
     end
 
   end # VirtualBuffers

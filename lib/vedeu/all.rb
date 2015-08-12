@@ -24,6 +24,7 @@ require 'vedeu/runtime/flags'
 require 'vedeu/runtime/application'
 
 require 'vedeu/repositories/collection'
+require 'vedeu/repositories/fifo'
 require 'vedeu/input/keys'
 require 'vedeu/repositories/repositories'
 

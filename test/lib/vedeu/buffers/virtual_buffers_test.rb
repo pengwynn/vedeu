@@ -57,7 +57,7 @@ module Vedeu
     describe '#clear' do
       subject { described.clear }
 
-      it { subject.must_be_instance_of(Array) }
+      it { subject.must_be_instance_of(Vedeu::Fifo) }
 
       it { subject.must_be_empty }
 
