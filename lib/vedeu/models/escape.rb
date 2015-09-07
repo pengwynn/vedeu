@@ -31,7 +31,7 @@ module Vedeu
 
     # An object is equal when its values are the same.
     #
-    # @param other [Vedeu::Views::Char]
+    # @param other [Vedeu::Escape]
     # @return [Boolean]
     def eql?(other)
       self.class == other.class && value == other.value
@@ -41,6 +41,14 @@ module Vedeu
     # @return [String]
     def position
       Vedeu::Position.coerce(@position)
+    end
+
+    # Return an empty string as most escape sequences won't make sense as HTML.
+    #
+    # @param options [Hash] Ignored.
+    # @return [String]
+    def to_html(options = {})
+      ''
     end
 
     # @return [String]

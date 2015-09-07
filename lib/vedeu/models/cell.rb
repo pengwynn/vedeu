@@ -50,6 +50,12 @@ module Vedeu
     end
     alias_method :==, :eql?
 
+    # @param options [Hash] Ignored.
+    # @return [String]
+    def to_html(options = {})
+      ''
+    end
+
     private
 
     # Returns the default options/attributes for this class.

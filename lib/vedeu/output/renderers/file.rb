@@ -29,25 +29,12 @@ module Vedeu
 
       # @return [String]
       def filename
-        if timestamp?
-          "#{options[:filename]}_#{timestamp}"
-
-        else
-          options[:filename]
-
-        end
+        options[:filename] + "_#{timestamp}"
       end
 
       # @return [Float]
       def timestamp
-        @timestamp ||= Time.now.to_f
-      end
-
-      # @return [Boolean]
-      def timestamp?
-        return true if options[:timestamp]
-
-        false
+        Time.now.to_f if options[:timestamp]
       end
 
       # @return [Boolean]

@@ -54,6 +54,13 @@ module Vedeu
       end
     end
 
+    describe '#to_html' do
+      subject { instance.to_html }
+
+      it { subject.must_be_instance_of(String) }
+      it { subject.must_equal('') }
+    end
+
   end # Cell
 
 end # Vedeu

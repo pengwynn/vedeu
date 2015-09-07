@@ -113,7 +113,7 @@ module Vedeu
       #   Vedeu::Views::Char, however, at the moment, `:parent` cannot be
       #   coerced.
       #
-      # @return [Hash]
+      # @return [Hash<Symbol => Hash, String>]
       def to_hash
         {
           border:   border.to_s,
@@ -125,14 +125,15 @@ module Vedeu
         }
       end
 
+      # @param options [Hash<Symbol => String>] See {Vedeu::HTMLChar#initialize}
       # @return [String]
-      def to_html
-        @to_html ||= Vedeu::HTMLChar.render(self)
+      def to_html(options = {})
+        @to_html ||= Vedeu::HTMLChar.render(self, options)
       end
 
       private
 
-      # @return [Hash]
+      # @return [Hash<Symbol => String>]
       def colour_to_hash
         {
           background: background.to_s,
@@ -140,7 +141,7 @@ module Vedeu
         }
       end
 
-      # @return [Hash]
+      # @return [Hash<Symbol => String>]
       def parent_to_hash
         if parent
           {
@@ -155,7 +156,7 @@ module Vedeu
         end
       end
 
-      # @return [Hash]
+      # @return [Has<Symbol => Fixnum>]
       def position_to_hash
         {
           y: y,
