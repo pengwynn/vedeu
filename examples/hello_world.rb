@@ -21,6 +21,7 @@ class HelloWorldApp
   Vedeu.configure do
     # debug!
     log '/tmp/vedeu_hello_world.log'
+    # profile!
   end
 
   Vedeu.interface 'messages' do

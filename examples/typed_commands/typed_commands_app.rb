@@ -12,6 +12,7 @@ class VedeuTypedCommands
   Vedeu.configure do
     debug!
     log '/tmp/vedeu_typed_commands_app.log'
+    # profile!
   end
 
   Vedeu.bind(:_initialize_) { Vedeu.trigger(:_refresh_) }

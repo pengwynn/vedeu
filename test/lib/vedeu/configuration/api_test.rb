@@ -248,6 +248,25 @@ module Vedeu
         end
       end
 
+      describe '#profile!' do
+        it { instance.must_respond_to(:profile) }
+
+        it 'sets the option to the desired value' do
+          configuration = Vedeu.configure { profile! }
+          configuration.profile.must_equal(true)
+        end
+
+        it 'sets the option to the desired value' do
+          configuration = Vedeu.configure { profile(true) }
+          configuration.profile.must_equal(true)
+        end
+
+        it 'sets the option to the desired value' do
+          configuration = Vedeu.configure { profile(false) }
+          configuration.profile.must_equal(false)
+        end
+      end
+
       describe '#renderer' do
         let(:some)  { Vedeu::SomeRenderer.new }
         let(:other) { Vedeu::OtherRenderer.new }

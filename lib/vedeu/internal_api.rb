@@ -49,6 +49,15 @@ module Vedeu
     # Allow debugging via the creation of stack traces courtesy of ruby-prof.
     #
     # @example
+    #   Vedeu.profile
+    #
+    # @!method profile
+    # @return [Vedeu::Debug]
+    def_delegators Vedeu::Debug, :profile
+
+    # Allow debugging courtesy of pry.
+    #
+    # @example
     #   Vedeu.debug
     #
     # @!method debug

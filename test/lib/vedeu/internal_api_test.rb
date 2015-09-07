@@ -17,6 +17,7 @@ module Vedeu
       it { Vedeu.must_respond_to(:interfaces) }
       it { Vedeu.must_respond_to(:keymaps) }
       it { Vedeu.must_respond_to(:menus) }
+      it { Vedeu.must_respond_to(:profile) }
       it { Vedeu.must_respond_to(:ready!) }
       it { Vedeu.must_respond_to(:ready?) }
       it { Vedeu.must_respond_to(:renderer) }

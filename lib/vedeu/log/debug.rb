@@ -8,13 +8,30 @@ module Vedeu
     extend self
 
     # :nocov:
+    # Helps to debug a running application by providing 'pry' during execution.
+    #
+    # @param block [Proc]
+    # @return [void]
+    # @yieldreturn [void]
+    def debug(&block)
+      return nil unless block_given?
+
+      require 'pry'
+
+      fail Vedeu::Exceptions::ModeSwitch
+
+      block.pry
+    end
+    # :nocov:
+
+    # :nocov:
     # Helps to debug a running application by providing a stack trace of its
     # execution upon exiting.
     #
     # @param filename [String]
     # @return [void]
-    # @yieldreturn [void] The section of the application to debug.
-    def self.debug(filename = 'profile.html')
+    # @yieldreturn [void] The section of the application to profile.
+    def profile(filename = 'profile.html')
       return nil unless block_given?
 
       require 'ruby-prof'

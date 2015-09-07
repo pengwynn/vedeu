@@ -27,6 +27,7 @@ class VedeuFocusApp
   Vedeu.configure do
     # debug!
     log '/tmp/vedeu_focus_app.log'
+    # profile!
   end
 
   update = proc do

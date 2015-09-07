@@ -25,6 +25,8 @@ class VedeuTestApplication
     drb_width   80
     drb_height  25
 
+    # profile!
+
     # terminal_mode :raw
     # cooked!
     # fake!

@@ -105,6 +105,14 @@ module Vedeu
       end
     end
 
+    describe '.profile?' do
+      it { described.must_respond_to(:profile) }
+
+      it 'returns the value of the profile option' do
+        Configuration.profile?.must_equal(false)
+      end
+    end
+
     describe '.stdin' do
       it 'returns the value of the redefined STDIN' do
         Configuration.stdin.must_equal(nil)

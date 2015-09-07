@@ -75,6 +75,7 @@ module Vedeu
           :fake,
           :interactive,
           :log,
+          :profile,
           :raw,
           :run_many,
           :run_once,
@@ -219,6 +220,17 @@ module Vedeu
         parser.on('-l', '--log [FILENAME]', String,
                   'Specify the path for the log file.') do |filename|
           options[:log] = filename
+        end
+      end
+
+      # CLI arguments:
+      #
+      #    -p, --profile
+      #
+      # @return [OptionParser]
+      def profile
+        parser.on('-p', '--profile', 'Run application with profiling on.') do
+          options[:profile] = true
         end
       end
 

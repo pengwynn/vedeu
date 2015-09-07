@@ -26,6 +26,7 @@ class VedeuMaterialColoursApp
   Vedeu.configure do
     # debug!
     log '/tmp/vedeu_material_colours_app.log'
+    # profile!
     # renderers Vedeu::Renderers::File.new
   end
 

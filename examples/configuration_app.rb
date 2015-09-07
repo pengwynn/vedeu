@@ -27,6 +27,7 @@ class VedeuConfigurationApp
   Vedeu.configure do
     # debug!
     log '/tmp/vedeu_configuration_app.log'
+    # profile!
   end
 
   Vedeu.interface 'config' do

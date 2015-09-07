@@ -236,6 +236,31 @@ module Vedeu
       end
       alias_method :debug, :debug!
 
+      # Sets boolean to enable/disable profiling. Vedeu's default setting is
+      # for profiling to be disabled. Using `profile!` or setting `profile` to true
+      # will enable profiling.
+      #
+      # @note
+      #   Be aware that running an application with profiling enabled will
+      #   affect performance.
+      #
+      #   Vedeu.configure do
+      #     profile!
+      #     # ...
+      #   end
+      #
+      #   Vedeu.configure do
+      #     profile false
+      #     # ...
+      #   end
+      #
+      # @param value [Boolean]
+      # @return [Boolean]
+      def profile!(value = true)
+        options[:profile] = value
+      end
+      alias_method :profile, :profile!
+
       # Sets the colour mode of the terminal.
       #
       #   Vedeu.configure do

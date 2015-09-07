@@ -11,6 +11,7 @@ class VedeuViewTemplateApp
   Vedeu.configure do
     debug!
     log '/tmp/vedeu_view_templates_app.log'
+    # profile!
   end
 
   Vedeu.bind(:_initialize_) { Vedeu.trigger(:_refresh_) }

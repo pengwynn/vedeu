@@ -126,6 +126,13 @@ module Vedeu
         end
       end
 
+      describe '#profile?' do
+        it '--profile' do
+          Configuration.configure(['--profile'])
+          Configuration.profile?.must_equal(true)
+        end
+      end
+
       describe '#root' do
         it '--root' do
           Configuration.configure(['--root', 'YourApp::SomeController.new'])

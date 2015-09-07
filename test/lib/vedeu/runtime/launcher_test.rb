@@ -21,8 +21,14 @@ module Vedeu
       it { instance.must_respond_to(:exit_code) }
     end
 
-    describe '#debug_execute!' do
-      subject { instance.debug_execute! }
+    describe '#execute!' do
+      before do
+        Application.stubs(:start)
+        Kernel.stubs(:exit)
+        Kernel.stubs(:puts)
+      end
+
+      subject { instance.execute! }
 
       context 'when debugging is enabled in the configuration' do
         # @todo Add more tests.
@@ -33,16 +39,6 @@ module Vedeu
         # @todo Add more tests.
         # it { skip }
       end
-    end
-
-    describe '#execute!' do
-      before do
-        Application.stubs(:start)
-        Kernel.stubs(:exit)
-        Kernel.stubs(:puts)
-      end
-
-      subject { instance.execute! }
 
       it 'returns 0 for successful execution' do
         subject.must_equal(0)
