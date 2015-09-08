@@ -50,6 +50,11 @@ module Vedeu
     end
     alias_method :==, :eql?
 
+    # @return [Vedeu::Position]
+    def position
+      Vedeu::Position[y, x]
+    end
+
     # @param options [Hash] Ignored.
     # @return [String]
     def to_html(options = {})
