@@ -19,12 +19,12 @@ module Vedeu
         @options = options || {}
       end
 
-      # @param output [Array<Array<Vedeu::Views::Char>>]
+      # @param buffer [Vedeu::Terminal::Buffer]
       # @return [String]
-      def render(output)
-        ::File.write(filename, output) if write_file?
+      def render(buffer)
+        ::File.write(filename, buffer) if write_file?
 
-        output
+        buffer
       end
 
       private

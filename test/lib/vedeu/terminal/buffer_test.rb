@@ -10,7 +10,7 @@ module Vedeu
       let(:empty_buffer) {
         Array.new(2) do |y|
           Array.new(3) do |x|
-            Vedeu::Cell.new(y: y + 1, x: x + 1)
+            Vedeu::Cell.new(position: [y + 1, x + 1])
           end
         end
       }
@@ -39,7 +39,7 @@ module Vedeu
 
           before do
             described.write(Vedeu::Views::Char.new(value: 'a',
-                                                   position: [1, 2]), 1, 2)
+                                                   position: [1, 2]))
           end
 
           it { described.instance_variable_get('@output').must_equal(expected) }
@@ -86,56 +86,36 @@ module Vedeu
       end
 
       describe '#write' do
-        let(:y)      { 0 }
-        let(:x)      { 0 }
         let(:_value) {}
 
-        subject { described.write(_value, y, x) }
+        subject { described.write(_value) }
 
         context 'when the value is nil' do
-          it { subject.must_equal(false) }
-        end
-
-        context 'when y < 1' do
-          let(:y) { 0 }
-
-          it { subject.must_equal(false) }
-        end
-
-        context 'when y > height' do
-          let(:y) { 3 }
-
-          it { subject.must_equal(false) }
-        end
-
-        context 'when x < 1' do
-          let(:x) { 0 }
-
-          it { subject.must_equal(false) }
-        end
-
-        context 'when x > width' do
-          let(:x) { 4 }
-
-          it { subject.must_equal(false) }
-        end
-
-        context 'when y and x are within the height and width' do
-          let(:y)      { 1 }
-          let(:x)      { 2 }
-          let(:_value) { Vedeu::Views::Char.new(y: y, x: x, value: 'a') }
           let(:expected) {
-            exp = empty_buffer
-            exp[y][x] = Vedeu::Views::Char.new(value: 'a', position: [y, x])
-            exp
+            [
+              [
+                Vedeu::Cell.new(position: [1, 1]),
+                Vedeu::Cell.new(position: [1, 2]),
+                Vedeu::Cell.new(position: [1, 3])
+              ], [
+                Vedeu::Cell.new(position: [2, 1]),
+                Vedeu::Cell.new(position: [2, 2]),
+                Vedeu::Cell.new(position: [2, 3])
+              ]
+            ]
           }
 
-          before do
-            described.write(Vedeu::Views::Char.new(value: 'a',
-                                                   position: [y, x]), y, x)
-          end
+          it { subject.must_equal(described) }
+          it { described.output.must_equal(expected) }
+        end
 
-          it { subject.must_equal(true) }
+        context 'when the value is not nil' do
+          let(:_value)   { Vedeu::Views::Char.new(y: 2, x: 1, value: 'a') }
+          let(:expected) {
+
+          }
+
+          it { subject.must_equal(described) }
           it { described.output.must_equal(expected) }
         end
       end

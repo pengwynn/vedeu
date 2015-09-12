@@ -33,23 +33,29 @@ module Vedeu
       def terminal
         Array.new(Vedeu.height) do |y|
           Array.new(Vedeu.width) do |x|
-            Vedeu::Cell.new(y: y + 1, x: x + 1)
+            Vedeu::Cell.new(position: [y + 1, x + 1])
           end
         end
       end
 
-      # @param value [void]
-      # @param y [Fixnum]
-      # @param x [Fixnum]
-      # @return [Boolean]
-      def write(value, y = 1, x = 1)
-        return false if value.nil?
-        return false if y < 1 || y > Vedeu.height
-        return false if x < 1 || x > Vedeu.width
+      # @param value [Array<Array<void>>]
+      # @return [Vedeu::Terminal::Buffer]
+      def write(value)
+        if value.is_a?(Array)
 
-        output[y][x] = value
 
-        true
+
+        end
+
+
+        if value.respond_to?(:position) && value.position.is_a?(Vedeu::Position)
+          output[value.position.y][value.position.x] = value
+
+        else
+
+        end
+
+        self
       end
 
     end # Buffer

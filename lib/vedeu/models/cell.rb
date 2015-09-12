@@ -16,14 +16,6 @@ module Vedeu
     # @return [NilClass|String]
     attr_reader :value
 
-    # @!attribute [r] x
-    # @return [NilClass|Fixnum]
-    attr_reader :x
-
-    # @!attribute [r] y
-    # @return [NilClass|Fixnum]
-    attr_reader :y
-
     # Returns a new instance of Vedeu::Cell.
     #
     # @param attributes [Hash<Symbol => Array<Symbol|String>,
@@ -36,7 +28,7 @@ module Vedeu
     # @return [Vedeu::Cell]
     def initialize(attributes = {})
       defaults.merge!(attributes).each do |key, value|
-        instance_variable_set("@#{key}", value)
+        instance_variable_set("@#{key}", value || defaults.fetch(key))
       end
     end
 
@@ -45,24 +37,23 @@ module Vedeu
     # @param other [Vedeu::Cell]
     # @return [Boolean]
     def eql?(other)
-      self.class == other.class && value == other.value && x == other.x &&
-        y == other.y
+      self.class == other.class && value == other.value &&
+        position == other.position
     end
     alias_method :==, :eql?
 
     # @return [Vedeu::Position]
     def position
-      Vedeu::Position[y, x]
+      Vedeu::Position.coerce(@position)
     end
 
     # @return [Hash]
     def to_hash
       {
-        colour: colour.to_s,
-        style:  style.to_s,
-        value:  value.to_s,
-        y:      y,
-        x:      x,
+        colour:   colour.to_s,
+        style:    style.to_s,
+        value:    value.to_s,
+        position: position.to_s,
       }
     end
 
@@ -84,11 +75,10 @@ module Vedeu
     # @return [Hash<Symbol => void>]
     def defaults
       {
-        colour: nil,
-        style:  nil,
-        value:  '',
-        x:      nil,
-        y:      nil,
+        colour:   nil,
+        style:    nil,
+        value:    '',
+        position: [1, 1],
       }
     end
 

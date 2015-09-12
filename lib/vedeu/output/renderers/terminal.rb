@@ -17,28 +17,42 @@ module Vedeu
         @options = options || {}
       end
 
-      # @param output [Array<Array<Vedeu::Views::Char>>]
+      # @param buffer [Vedeu::Terminal::Buffer]
       # @return [Array<String>]
-      def render(output)
-        Vedeu::Terminal.output(parsed(output))
+      def render(buffer)
+        Vedeu::Terminal.output(parsed(buffer))
       end
 
       private
 
-      # @param output [Array<Array<Vedeu::Views::Char>>]
-      # @return [Array<Array<Vedeu::Views::Char>>]
-      def parsed(output)
-        store!(output)
+      def compression
+        options[:compression]
+      end
+      alias_method :compression?, :compression
 
-        Vedeu.timer('Compression') do
-          Vedeu::Compressor.render(output)
+      # @param buffer [Vedeu::Terminal::Buffer]
+      # @return [Array<Array<Vedeu::Views::Char>>]
+      def parsed(buffer)
+        if compression?
+          Vedeu.timer('Compression') { Vedeu::Compressor.render(content(buffer)) }
+
+        else
+          content(buffer)
+
         end
       end
 
-      # @param output [Array<Array<Vedeu::Views::Char>>]
-      # @return [Array<Vedeu::Views::Char>]
-      def store!(output)
-        Vedeu::Terminal::Content.stores(output)
+      def content(buffer)
+        buffer.output.flatten.delete_if do |cell|
+          cell.is_a?(Vedeu::Cell)
+        end
+      end
+
+      # @return [Hash<Symbol => Boolean>]
+      def defaults
+        {
+          compression: false,
+        }
       end
 
     end # Terminal

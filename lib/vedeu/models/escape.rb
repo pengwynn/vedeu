@@ -52,11 +52,6 @@ module Vedeu
     end
 
     # @return [String]
-    def to_html
-      ''
-    end
-
-    # @return [String]
     def to_s
       "#{position}#{value}"
     end

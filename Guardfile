@@ -1,4 +1,4 @@
-guard :minitest, all_after_pass: true,
+guard :minitest, all_after_pass: false,
                  focus_on_failed: true,
                  env: { 'NO_SIMPLECOV' => true } do
   watch(%r{^test/(.*)_test\.rb})
